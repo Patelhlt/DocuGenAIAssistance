@@ -1,0 +1,781 @@
+//////////////////////////////////////////////////////////////////Storm Surge Study
+
+//////////////////////////////////////////////////////////////////state_nwic TABLE :-01
+
+-- Table: public.state_nwic
+
+-- DROP TABLE IF EXISTS public.state_nwic;
+
+CREATE TABLE IF NOT EXISTS public.state_nwic
+(
+    ogc_fid integer NOT NULL DEFAULT nextval('state_nwic_ogc_fid_seq'::regclass),
+    state character varying COLLATE pg_catalog."default",
+    state_code character varying COLLATE pg_catalog."default",
+    shape_length double precision,
+    shape_area double precision,
+    geom geometry(Geometry,4326),
+    statename character varying COLLATE pg_catalog."default"
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.state_nwic
+    OWNER to postgres;
+-------------------------------INSERT-----------------------------------
+
+INSERT INTO public.state_nwic(
+	ogc_fid, state, state_code, shape_length, shape_area, geom, statename)
+	VALUES (?, ?, ?, ?, ?, ?, ?);
+
+-------------------------------UPDATE------------------------------------
+
+UPDATE public.state_nwic
+	SET ogc_fid=?, state=?, state_code=?, shape_length=?, shape_area=?, geom=?, statename=?
+	WHERE <condition>;
+
+-------------------------------SELECT------------------------------------
+
+SELECT ogc_fid, state, state_code, shape_length, shape_area, geom, statename
+	FROM public.state_nwic;
+
+-------------------------------DELETE-----------------------------------
+
+DELETE FROM public.state_nwic
+	WHERE <condition>;
+
+//////////////////////////////////////////////////////////////////district_nwic TABLE :-02
+
+-- Table: public.district_nwic
+
+-- DROP TABLE IF EXISTS public.district_nwic;
+
+CREATE TABLE IF NOT EXISTS public.district_nwic
+(
+    ogc_fid integer NOT NULL DEFAULT nextval('district_nwic_ogc_fid_seq'::regclass),
+    district_code character varying COLLATE pg_catalog."default",
+    district character varying COLLATE pg_catalog."default",
+    state_code character varying COLLATE pg_catalog."default",
+    state character varying COLLATE pg_catalog."default",
+    shape_length double precision,
+    shape_area double precision,
+    geom geometry(Geometry,4326),
+    CONSTRAINT district_nwic_pkey PRIMARY KEY (ogc_fid)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.district_nwic
+    OWNER to postgres;
+
+-------------------------------INSERT-----------------------------------
+
+INSERT INTO public.district_nwic(
+	ogc_fid, district_code, district, state_code, state, shape_length, shape_area, geom)
+	VALUES (?, ?, ?, ?, ?, ?, ?, ?);
+
+-------------------------------UPDATE------------------------------------
+
+UPDATE public.district_nwic
+	SET ogc_fid=?, district_code=?, district=?, state_code=?, state=?, shape_length=?, shape_area=?, geom=?
+	WHERE <condition>;
+
+-------------------------------SELECT------------------------------------
+
+SELECT ogc_fid, district_code, district, state_code, state, shape_length, shape_area, geom
+	FROM public.district_nwic;
+
+-------------------------------DELETE-----------------------------------
+
+DELETE FROM public.district_nwic
+	WHERE <condition>;
+
+//////////////////////////////////////////////////////////////////subdistrict_nwic TABLE :-03
+
+-- Table: public.subdistrict_nwic
+
+-- DROP TABLE IF EXISTS public.subdistrict_nwic;
+
+CREATE TABLE IF NOT EXISTS public.subdistrict_nwic
+(
+    ogc_fid integer NOT NULL DEFAULT nextval('subdistrict_nwic_ogc_fid_seq'::regclass),
+    wkb_geometry geometry(MultiPolygon,4326),
+    subdistrict_code character varying COLLATE pg_catalog."default",
+    subdistrict character varying COLLATE pg_catalog."default",
+    district_code character varying COLLATE pg_catalog."default",
+    district character varying COLLATE pg_catalog."default",
+    state_code character varying COLLATE pg_catalog."default",
+    state character varying COLLATE pg_catalog."default",
+    no_hh double precision,
+    tot_p double precision,
+    avg_hh double precision,
+    total_geographical_area_in_hect double precision,
+    forest_area_in_hectares double precision,
+    area_under_non_agricultural_use double precision,
+    barren_un_cultivable_land_area_ double precision,
+    permanent_pastures_and_other_gr double precision,
+    land_under_miscellaneous_tree_c double precision,
+    culturable_waste_land_area_in_h double precision,
+    fallows_land_other_than_current double precision,
+    current_fallows_area_in_hectare double precision,
+    net_area_sown_in_hectares double precision,
+    total_unirrigated_land_area_in_ double precision,
+    area_irrigated_by_source_in_hec double precision,
+    canals_area_in_hectares double precision,
+    wells_tube_wells_area_in_hectar double precision,
+    tanks_lakes_area_in_hectares double precision,
+    waterfall_area_in_hectares double precision,
+    unique_ character varying COLLATE pg_catalog."default",
+    shape_length double precision,
+    shape_area double precision,
+    geom geometry,
+    subdistric character varying(255) COLLATE pg_catalog."default"
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.subdistrict_nwic
+    OWNER to postgres;
+
+-------------------------------INSERT-----------------------------------
+
+INSERT INTO public.subdistrict_nwic(
+	ogc_fid, wkb_geometry, subdistrict_code, subdistrict, district_code, district, state_code, state, no_hh, tot_p, avg_hh, total_geographical_area_in_hect, forest_area_in_hectares, area_under_non_agricultural_use, barren_un_cultivable_land_area_, permanent_pastures_and_other_gr, land_under_miscellaneous_tree_c, culturable_waste_land_area_in_h, fallows_land_other_than_current, current_fallows_area_in_hectare, net_area_sown_in_hectares, total_unirrigated_land_area_in_, area_irrigated_by_source_in_hec, canals_area_in_hectares, wells_tube_wells_area_in_hectar, tanks_lakes_area_in_hectares, waterfall_area_in_hectares, unique_, shape_length, shape_area, geom, subdistric)
+	VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+
+-------------------------------UPDATE------------------------------------
+
+UPDATE public.subdistrict_nwic
+	SET ogc_fid=?, wkb_geometry=?, subdistrict_code=?, subdistrict=?, district_code=?, district=?, state_code=?, state=?, no_hh=?, tot_p=?, avg_hh=?, total_geographical_area_in_hect=?, forest_area_in_hectares=?, area_under_non_agricultural_use=?, barren_un_cultivable_land_area_=?, permanent_pastures_and_other_gr=?, land_under_miscellaneous_tree_c=?, culturable_waste_land_area_in_h=?, fallows_land_other_than_current=?, current_fallows_area_in_hectare=?, net_area_sown_in_hectares=?, total_unirrigated_land_area_in_=?, area_irrigated_by_source_in_hec=?, canals_area_in_hectares=?, wells_tube_wells_area_in_hectar=?, tanks_lakes_area_in_hectares=?, waterfall_area_in_hectares=?, unique_=?, shape_length=?, shape_area=?, geom=?, subdistric=?
+	WHERE <condition>;
+
+-------------------------------SELECT------------------------------------
+
+SELECT ogc_fid, wkb_geometry, subdistrict_code, subdistrict, district_code, district, state_code, state, no_hh, tot_p, avg_hh, total_geographical_area_in_hect, forest_area_in_hectares, area_under_non_agricultural_use, barren_un_cultivable_land_area_, permanent_pastures_and_other_gr, land_under_miscellaneous_tree_c, culturable_waste_land_area_in_h, fallows_land_other_than_current, current_fallows_area_in_hectare, net_area_sown_in_hectares, total_unirrigated_land_area_in_, area_irrigated_by_source_in_hec, canals_area_in_hectares, wells_tube_wells_area_in_hectar, tanks_lakes_area_in_hectares, waterfall_area_in_hectares, unique_, shape_length, shape_area, geom, subdistric
+	FROM public.subdistrict_nwic;
+
+-------------------------------DELETE-----------------------------------
+
+DELETE FROM public.subdistrict_nwic
+	WHERE <condition>;
+
+//////////////////////////////////////////////////////////////////village_boundary_soil-dept_warims TABLE :-04
+
+-- Table: public.village_boundary_soi_dept_warims
+
+-- DROP TABLE IF EXISTS public.village_boundary_soi_dept_warims;
+
+CREATE TABLE IF NOT EXISTS public.village_boundary_soi_dept_warims
+(
+    id integer NOT NULL DEFAULT nextval('village_boundary_soi_dept_warims_id_seq'::regclass),
+    geom geometry(MultiPolygon,4326),
+    objectid bigint,
+    village character varying(255) COLLATE pg_catalog."default",
+    vlcode character varying(6) COLLATE pg_catalog."default",
+    gram_panchayat_name character varying(500) COLLATE pg_catalog."default",
+    gram_panchayat_code character varying(50) COLLATE pg_catalog."default",
+    block character varying(255) COLLATE pg_catalog."default",
+    bkcode character varying(50) COLLATE pg_catalog."default",
+    subdistrict character varying(255) COLLATE pg_catalog."default",
+    sdcode character varying(5) COLLATE pg_catalog."default",
+    sub_district_head_quarter character varying(500) COLLATE pg_catalog."default",
+    district character varying(100) COLLATE pg_catalog."default",
+    dtcode character varying(3) COLLATE pg_catalog."default",
+    district_head_quarter character varying(50) COLLATE pg_catalog."default",
+    state character varying(100) COLLATE pg_catalog."default",
+    stcode character varying(2) COLLATE pg_catalog."default",
+    uqcode character varying(16) COLLATE pg_catalog."default",
+    country character varying(20) COLLATE pg_catalog."default",
+    total_urban_rural character varying(5) COLLATE pg_catalog."default",
+    total_households double precision,
+    total_population_village double precision,
+    avg_household double precision,
+    total_geographical_area double precision,
+    total_male_population_village double precision,
+    total_female_population_village double precision,
+    tapwater_treated_status character varying(20) COLLATE pg_catalog."default",
+    tapwater_untreated_status character varying(20) COLLATE pg_catalog."default",
+    covered_well_status character varying(20) COLLATE pg_catalog."default",
+    covered_well_function_year character varying(20) COLLATE pg_catalog."default",
+    covered_well_functioning_summer character varying(20) COLLATE pg_catalog."default",
+    uncovered_well_status character varying(20) COLLATE pg_catalog."default",
+    uncovered_well_function_year character varying(20) COLLATE pg_catalog."default",
+    uncovered_well_function_summer character varying(20) COLLATE pg_catalog."default",
+    handpump_status character varying(20) COLLATE pg_catalog."default",
+    hand_pump_function_year character varying(20) COLLATE pg_catalog."default",
+    hand_pump_function_summer character varying(20) COLLATE pg_catalog."default",
+    tubewell_borehole_status character varying(20) COLLATE pg_catalog."default",
+    tube_wells_borehole_function_year character varying(20) COLLATE pg_catalog."default",
+    tube_wells_borehole_function_summer character varying(20) COLLATE pg_catalog."default",
+    spring_status character varying(20) COLLATE pg_catalog."default",
+    spring_functioning_all_round_year character varying(20) COLLATE pg_catalog."default",
+    spring_functioning_summer_month character varying(20) COLLATE pg_catalog."default",
+    river_canal_status character varying(20) COLLATE pg_catalog."default",
+    tank_pond_lake_status character varying(20) COLLATE pg_catalog."default",
+    others_status character varying(20) COLLATE pg_catalog."default",
+    closed_drainage_status character varying(20) COLLATE pg_catalog."default",
+    open_drainage_status character varying(20) COLLATE pg_catalog."default",
+    village_pin_code_status character varying(20) COLLATE pg_catalog."default",
+    forest_area double precision,
+    area_under_non_agricultural_use double precision,
+    barren_uncultivable_land double precision,
+    permanent_pastures_grazing double precision,
+    land_under_miscellaneous double precision,
+    culturable_waste_land double precision,
+    fallows_land_other_than_current double precision,
+    current_fallows_area double precision,
+    net_area_sown double precision,
+    total_unirrigated_land double precision,
+    area_irrigated_by_source double precision,
+    canals_area double precision,
+    wells_tube_wells_area double precision,
+    tanks_lakes_area double precision,
+    waterfall_area double precision,
+    other_source_specify_area double precision,
+    nearest_town_name character varying(250) COLLATE pg_catalog."default",
+    nearest_town_distance_from_village double precision,
+    shape_length double precision,
+    shape_area double precision
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.village_boundary_soi_dept_warims
+    OWNER to postgres;
+-------------------------------INSERT-----------------------------------
+
+INSERT INTO public.village_boundary_soi_dept_warims(
+	id, geom, objectid, village, vlcode, gram_panchayat_name, gram_panchayat_code, block, bkcode, subdistrict, sdcode, sub_district_head_quarter, district, dtcode, district_head_quarter, state, stcode, uqcode, country, total_urban_rural, total_households, total_population_village, avg_household, total_geographical_area, total_male_population_village, total_female_population_village, tapwater_treated_status, tapwater_untreated_status, covered_well_status, covered_well_function_year, covered_well_functioning_summer, uncovered_well_status, uncovered_well_function_year, uncovered_well_function_summer, handpump_status, hand_pump_function_year, hand_pump_function_summer, tubewell_borehole_status, tube_wells_borehole_function_year, tube_wells_borehole_function_summer, spring_status, spring_functioning_all_round_year, spring_functioning_summer_month, river_canal_status, tank_pond_lake_status, others_status, closed_drainage_status, open_drainage_status, village_pin_code_status, forest_area, area_under_non_agricultural_use, barren_uncultivable_land, permanent_pastures_grazing, land_under_miscellaneous, culturable_waste_land, fallows_land_other_than_current, current_fallows_area, net_area_sown, total_unirrigated_land, area_irrigated_by_source, canals_area, wells_tube_wells_area, tanks_lakes_area, waterfall_area, other_source_specify_area, nearest_town_name, nearest_town_distance_from_village, shape_length, shape_area)
+	VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+
+-------------------------------UPDATE------------------------------------
+
+UPDATE public.village_boundary_soi_dept_warims
+	SET id=?, geom=?, objectid=?, village=?, vlcode=?, gram_panchayat_name=?, gram_panchayat_code=?, block=?, bkcode=?, subdistrict=?, sdcode=?, sub_district_head_quarter=?, district=?, dtcode=?, district_head_quarter=?, state=?, stcode=?, uqcode=?, country=?, total_urban_rural=?, total_households=?, total_population_village=?, avg_household=?, total_geographical_area=?, total_male_population_village=?, total_female_population_village=?, tapwater_treated_status=?, tapwater_untreated_status=?, covered_well_status=?, covered_well_function_year=?, covered_well_functioning_summer=?, uncovered_well_status=?, uncovered_well_function_year=?, uncovered_well_function_summer=?, handpump_status=?, hand_pump_function_year=?, hand_pump_function_summer=?, tubewell_borehole_status=?, tube_wells_borehole_function_year=?, tube_wells_borehole_function_summer=?, spring_status=?, spring_functioning_all_round_year=?, spring_functioning_summer_month=?, river_canal_status=?, tank_pond_lake_status=?, others_status=?, closed_drainage_status=?, open_drainage_status=?, village_pin_code_status=?, forest_area=?, area_under_non_agricultural_use=?, barren_uncultivable_land=?, permanent_pastures_grazing=?, land_under_miscellaneous=?, culturable_waste_land=?, fallows_land_other_than_current=?, current_fallows_area=?, net_area_sown=?, total_unirrigated_land=?, area_irrigated_by_source=?, canals_area=?, wells_tube_wells_area=?, tanks_lakes_area=?, waterfall_area=?, other_source_specify_area=?, nearest_town_name=?, nearest_town_distance_from_village=?, shape_length=?, shape_area=?
+	WHERE <condition>;
+
+-------------------------------SELECT------------------------------------
+
+SELECT id, geom, objectid, village, vlcode, gram_panchayat_name, gram_panchayat_code, block, bkcode, subdistrict, sdcode, sub_district_head_quarter, district, dtcode, district_head_quarter, state, stcode, uqcode, country, total_urban_rural, total_households, total_population_village, avg_household, total_geographical_area, total_male_population_village, total_female_population_village, tapwater_treated_status, tapwater_untreated_status, covered_well_status, covered_well_function_year, covered_well_functioning_summer, uncovered_well_status, uncovered_well_function_year, uncovered_well_function_summer, handpump_status, hand_pump_function_year, hand_pump_function_summer, tubewell_borehole_status, tube_wells_borehole_function_year, tube_wells_borehole_function_summer, spring_status, spring_functioning_all_round_year, spring_functioning_summer_month, river_canal_status, tank_pond_lake_status, others_status, closed_drainage_status, open_drainage_status, village_pin_code_status, forest_area, area_under_non_agricultural_use, barren_uncultivable_land, permanent_pastures_grazing, land_under_miscellaneous, culturable_waste_land, fallows_land_other_than_current, current_fallows_area, net_area_sown, total_unirrigated_land, area_irrigated_by_source, canals_area, wells_tube_wells_area, tanks_lakes_area, waterfall_area, other_source_specify_area, nearest_town_name, nearest_town_distance_from_village, shape_length, shape_area
+	FROM public.village_boundary_soi_dept_warims;
+
+-------------------------------DELETE-----------------------------------
+
+DELETE FROM public.village_boundary_soi_dept_warims
+	WHERE <condition>;
+
+//////////////////////////////////////////////////////////////////coastline_dept_warims TABLE :-05
+
+-- Table: public.coastline_dept_warims
+
+-- DROP TABLE IF EXISTS public.coastline_dept_warims;
+
+CREATE TABLE IF NOT EXISTS public.coastline_dept_warims
+(
+    gid integer NOT NULL DEFAULT nextval('coastline_dept_warims_gid_seq'::regclass),
+    objectid numeric,
+    length numeric,
+    shape_leng numeric,
+    geom geometry(MultiLineString),
+    CONSTRAINT coastline_dept_warims_pkey PRIMARY KEY (gid)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.coastline_dept_warims
+    OWNER to postgres;
+
+-------------------------------INSERT-----------------------------------
+
+INSERT INTO public.coastline_dept_warims(
+	gid, objectid, length, shape_leng, geom)
+	VALUES (?, ?, ?, ?, ?);
+
+-------------------------------UPDATE-----------------------------------
+
+UPDATE public.coastline_dept_warims
+	SET gid=?, objectid=?, length=?, shape_leng=?, geom=?
+	WHERE <condition>;
+
+-------------------------------SELECT-----------------------------------
+
+SELECT gid, objectid, length, shape_leng, geom
+	FROM public.coastline_dept_warims;
+
+-------------------------------DELETE-----------------------------------
+
+DELETE FROM public.coastline_dept_warims
+	WHERE <condition>;
+
+//////////////////////////////////////////////////////////////////nio_observation_location_warims TABLE :-06 -NOT FOUND
+
+
+//////////////////////////////////////////////////////////////////ncc_rp10 TABLE :-07
+
+-- Table: public.ncc_rp10
+
+-- DROP TABLE IF EXISTS public.ncc_rp10;
+
+CREATE TABLE IF NOT EXISTS public.ncc_rp10
+(
+    ogc_fid double precision,
+    objectid double precision,
+    uuid character varying(255) COLLATE pg_catalog."default",
+    sl_no character varying(255) COLLATE pg_catalog."default",
+    state character varying(100) COLLATE pg_catalog."default",
+    stcode double precision,
+    geog_area character varying(255) COLLATE pg_catalog."default",
+    ncc_rp10 double precision,
+    lat_gcs double precision,
+    long_gcs double precision,
+    lat_lcc double precision,
+    long_lcc double precision,
+    uid_coast_old character varying(255) COLLATE pg_catalog."default",
+    state_coast_old character varying(255) COLLATE pg_catalog."default",
+    wkb_geometry geometry
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.ncc_rp10
+    OWNER to postgres;
+
+---------------------------------INSERT---------------------------------
+
+INSERT INTO public.ncc_rp10(
+	ogc_fid, objectid, uuid, sl_no, state, stcode, geog_area, ncc_rp10, lat_gcs, long_gcs, lat_lcc, long_lcc, uid_coast_old, state_coast_old, wkb_geometry)
+	VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+
+---------------------------------UPDATE---------------------------------
+
+UPDATE public.ncc_rp10
+	SET ogc_fid=?, objectid=?, uuid=?, sl_no=?, state=?, stcode=?, geog_area=?, ncc_rp10=?, lat_gcs=?, long_gcs=?, lat_lcc=?, long_lcc=?, uid_coast_old=?, state_coast_old=?, wkb_geometry=?
+	WHERE <condition>;
+
+---------------------------------SELECT---------------------------------
+
+SELECT ogc_fid, objectid, uuid, sl_no, state, stcode, geog_area, ncc_rp10, lat_gcs, long_gcs, lat_lcc, long_lcc, uid_coast_old, state_coast_old, wkb_geometry
+	FROM public.ncc_rp10;
+
+---------------------------------DELETE---------------------------------
+
+DELETE FROM public.ncc_rp10
+	WHERE <condition>;
+
+//////////////////////////////////////////////////////////////////ncc_rp50 TABLE :-08
+
+-- Table: public.ncc_rp50
+
+-- DROP TABLE IF EXISTS public.ncc_rp50;
+
+CREATE TABLE IF NOT EXISTS public.ncc_rp50
+(
+    ogc_fid double precision,
+    objectid double precision,
+    uuid character varying(255) COLLATE pg_catalog."default",
+    sl_no character varying(255) COLLATE pg_catalog."default",
+    state character varying(100) COLLATE pg_catalog."default",
+    stcode double precision,
+    geog_area character varying(255) COLLATE pg_catalog."default",
+    ncc_rp50 double precision,
+    lat_gcs double precision,
+    long_gcs double precision,
+    lat_lcc double precision,
+    long_lcc double precision,
+    uid_coast_old character varying(255) COLLATE pg_catalog."default",
+    state_coast_old character varying(255) COLLATE pg_catalog."default",
+    wkb_geometry geometry
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.ncc_rp50
+    OWNER to postgres;
+
+-------------------------------------INSERT-------------------------------
+
+INSERT INTO public.ncc_rp50(
+	ogc_fid, objectid, uuid, sl_no, state, stcode, geog_area, ncc_rp50, lat_gcs, long_gcs, lat_lcc, long_lcc, uid_coast_old, state_coast_old, wkb_geometry)
+	VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+
+-------------------------------------UPDATE-------------------------------
+
+UPDATE public.ncc_rp50
+	SET ogc_fid=?, objectid=?, uuid=?, sl_no=?, state=?, stcode=?, geog_area=?, ncc_rp50=?, lat_gcs=?, long_gcs=?, lat_lcc=?, long_lcc=?, uid_coast_old=?, state_coast_old=?, wkb_geometry=?
+	WHERE <condition>;
+
+-------------------------------------SELECT-------------------------------
+
+SELECT ogc_fid, objectid, uuid, sl_no, state, stcode, geog_area, ncc_rp50, lat_gcs, long_gcs, lat_lcc, long_lcc, uid_coast_old, state_coast_old, wkb_geometry
+	FROM public.ncc_rp50;
+
+-------------------------------------DELETE-------------------------------
+
+DELETE FROM public.ncc_rp50
+	WHERE <condition>;
+
+//////////////////////////////////////////////////////////////////ncc_rp100 TABLE :-09
+
+-- Table: public.ncc_rp100
+
+-- DROP TABLE IF EXISTS public.ncc_rp100;
+
+CREATE TABLE IF NOT EXISTS public.ncc_rp100
+(
+    ogc_fid double precision,
+    objectid double precision,
+    uuid character varying(255) COLLATE pg_catalog."default",
+    sl_no character varying(255) COLLATE pg_catalog."default",
+    state character varying(100) COLLATE pg_catalog."default",
+    stcode double precision,
+    geog_area character varying(255) COLLATE pg_catalog."default",
+    ncc_rp100 double precision,
+    lat_gcs double precision,
+    long_gcs double precision,
+    lat_lcc double precision,
+    long_lcc double precision,
+    uid_coast_old character varying(255) COLLATE pg_catalog."default",
+    state_coast_old character varying(255) COLLATE pg_catalog."default",
+    wkb_geometry geometry
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.ncc_rp100
+    OWNER to postgres;
+
+-------------------------------------INSERT-------------------------------
+
+INSERT INTO public.ncc_rp100(
+	ogc_fid, objectid, uuid, sl_no, state, stcode, geog_area, ncc_rp100, lat_gcs, long_gcs, lat_lcc, long_lcc, uid_coast_old, state_coast_old, wkb_geometry)
+	VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+
+-------------------------------------UPDATE-------------------------------
+
+UPDATE public.ncc_rp100
+	SET ogc_fid=?, objectid=?, uuid=?, sl_no=?, state=?, stcode=?, geog_area=?, ncc_rp100=?, lat_gcs=?, long_gcs=?, lat_lcc=?, long_lcc=?, uid_coast_old=?, state_coast_old=?, wkb_geometry=?
+	WHERE <condition>;
+
+-------------------------------------SELECT-------------------------------
+
+SELECT ogc_fid, objectid, uuid, sl_no, state, stcode, geog_area, ncc_rp100, lat_gcs, long_gcs, lat_lcc, long_lcc, uid_coast_old, state_coast_old, wkb_geometry
+	FROM public.ncc_rp100;
+
+-------------------------------------DELETE-------------------------------
+
+DELETE FROM public.ncc_rp100
+	WHERE <condition>;
+
+//////////////////////////////////////////////////////////////////f7pc_rp10 TABLE :-10
+
+-- Table: public.f7pc_rp10
+
+-- DROP TABLE IF EXISTS public.f7pc_rp10;
+
+CREATE TABLE IF NOT EXISTS public.f7pc_rp10
+(
+    ogc_fid double precision,
+    objectid double precision,
+    uuid character varying(255) COLLATE pg_catalog."default",
+    sl_no character varying(255) COLLATE pg_catalog."default",
+    state character varying(100) COLLATE pg_catalog."default",
+    stcode double precision,
+    geog_area character varying(255) COLLATE pg_catalog."default",
+    f7pc_rp10 double precision,
+    lat_gcs double precision,
+    long_gcs double precision,
+    lat_lcc double precision,
+    long_lcc double precision,
+    uid_coast_old character varying(255) COLLATE pg_catalog."default",
+    state_coast_old character varying(255) COLLATE pg_catalog."default",
+    wkb_geometry geometry
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.f7pc_rp10
+    OWNER to postgres;
+
+-------------------------------------INSERT-------------------------------
+
+INSERT INTO public.f7pc_rp10(
+	ogc_fid, objectid, uuid, sl_no, state, stcode, geog_area, f7pc_rp10, lat_gcs, long_gcs, lat_lcc, long_lcc, uid_coast_old, state_coast_old, wkb_geometry)
+	VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+
+-------------------------------------UPDATE-------------------------------
+
+UPDATE public.f7pc_rp10
+	SET ogc_fid=?, objectid=?, uuid=?, sl_no=?, state=?, stcode=?, geog_area=?, f7pc_rp10=?, lat_gcs=?, long_gcs=?, lat_lcc=?, long_lcc=?, uid_coast_old=?, state_coast_old=?, wkb_geometry=?
+	WHERE <condition>;
+
+-------------------------------------SELECT-------------------------------
+
+SELECT ogc_fid, objectid, uuid, sl_no, state, stcode, geog_area, f7pc_rp10, lat_gcs, long_gcs, lat_lcc, long_lcc, uid_coast_old, state_coast_old, wkb_geometry
+	FROM public.f7pc_rp10;
+
+-------------------------------------DELETE-------------------------------
+
+DELETE FROM public.f7pc_rp10
+	WHERE <condition>;
+
+//////////////////////////////////////////////////////////////////f7pc_rp50 TABLE :-11
+
+-- Table: public.f7pc_rp50
+
+-- DROP TABLE IF EXISTS public.f7pc_rp50;
+
+CREATE TABLE IF NOT EXISTS public.f7pc_rp50
+(
+    ogc_fid double precision,
+    objectid double precision,
+    uuid character varying(255) COLLATE pg_catalog."default",
+    sl_no character varying(255) COLLATE pg_catalog."default",
+    state character varying(100) COLLATE pg_catalog."default",
+    stcode double precision,
+    geog_area character varying(255) COLLATE pg_catalog."default",
+    f7pc_rp50 double precision,
+    lat_gcs double precision,
+    long_gcs double precision,
+    lat_lcc double precision,
+    long_lcc double precision,
+    uid_coast_old character varying(255) COLLATE pg_catalog."default",
+    state_coast_old character varying(255) COLLATE pg_catalog."default",
+    wkb_geometry geometry
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.f7pc_rp50
+    OWNER to postgres;
+
+-------------------------------------INSERT-------------------------------
+
+INSERT INTO public.f7pc_rp50(
+	ogc_fid, objectid, uuid, sl_no, state, stcode, geog_area, f7pc_rp50, lat_gcs, long_gcs, lat_lcc, long_lcc, uid_coast_old, state_coast_old, wkb_geometry)
+	VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+
+-------------------------------------UPDATE-------------------------------
+
+UPDATE public.f7pc_rp50
+	SET ogc_fid=?, objectid=?, uuid=?, sl_no=?, state=?, stcode=?, geog_area=?, f7pc_rp50=?, lat_gcs=?, long_gcs=?, lat_lcc=?, long_lcc=?, uid_coast_old=?, state_coast_old=?, wkb_geometry=?
+	WHERE <condition>;
+
+-------------------------------------SELECT-------------------------------
+
+SELECT ogc_fid, objectid, uuid, sl_no, state, stcode, geog_area, f7pc_rp50, lat_gcs, long_gcs, lat_lcc, long_lcc, uid_coast_old, state_coast_old, wkb_geometry
+	FROM public.f7pc_rp50;
+
+-------------------------------------DELETE-------------------------------
+
+DELETE FROM public.f7pc_rp50
+	WHERE <condition>;
+
+//////////////////////////////////////////////////////////////////f7pc_rp100 TABLE :-12
+
+-- Table: public.f7pc_rp100
+
+-- DROP TABLE IF EXISTS public.f7pc_rp100;
+
+CREATE TABLE IF NOT EXISTS public.f7pc_rp100
+(
+    ogc_fid double precision,
+    objectid double precision,
+    uuid character varying(255) COLLATE pg_catalog."default",
+    sl_no character varying(255) COLLATE pg_catalog."default",
+    state character varying(100) COLLATE pg_catalog."default",
+    stcode double precision,
+    geog_area character varying(255) COLLATE pg_catalog."default",
+    f7pc_rp100 double precision,
+    lat_gcs double precision,
+    long_gcs double precision,
+    lat_lcc double precision,
+    long_lcc double precision,
+    uid_coast_old character varying(255) COLLATE pg_catalog."default",
+    state_coast_old character varying(255) COLLATE pg_catalog."default",
+    wkb_geometry geometry
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.f7pc_rp100
+    OWNER to postgres;
+
+-------------------------------------INSERT-------------------------------
+
+INSERT INTO public.f7pc_rp100(
+	ogc_fid, objectid, uuid, sl_no, state, stcode, geog_area, f7pc_rp100, lat_gcs, long_gcs, lat_lcc, long_lcc, uid_coast_old, state_coast_old, wkb_geometry)
+	VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+
+-------------------------------------UPDATE-------------------------------
+
+UPDATE public.f7pc_rp100
+	SET ogc_fid=?, objectid=?, uuid=?, sl_no=?, state=?, stcode=?, geog_area=?, f7pc_rp100=?, lat_gcs=?, long_gcs=?, lat_lcc=?, long_lcc=?, uid_coast_old=?, state_coast_old=?, wkb_geometry=?
+	WHERE <condition>;
+
+-------------------------------------SELECT-------------------------------
+
+SELECT ogc_fid, objectid, uuid, sl_no, state, stcode, geog_area, f7pc_rp100, lat_gcs, long_gcs, lat_lcc, long_lcc, uid_coast_old, state_coast_old, wkb_geometry
+	FROM public.f7pc_rp100;
+
+-------------------------------------DELETE-------------------------------
+
+DELETE FROM public.f7pc_rp100
+	WHERE <condition>;
+
+//////////////////////////////////////////////////////////////////f11pc_rp10 TABLE :-13
+
+-- Table: public.f11pc_rp10
+
+-- DROP TABLE IF EXISTS public.f11pc_rp10;
+
+CREATE TABLE IF NOT EXISTS public.f11pc_rp10
+(
+    ogc_fid double precision,
+    objectid double precision,
+    uuid character varying(255) COLLATE pg_catalog."default",
+    sl_no character varying(255) COLLATE pg_catalog."default",
+    state character varying(100) COLLATE pg_catalog."default",
+    stcode double precision,
+    geog_area character varying(255) COLLATE pg_catalog."default",
+    f11pc_rp10 double precision,
+    lat_gcs double precision,
+    long_gcs double precision,
+    lat_lcc double precision,
+    long_lcc double precision,
+    uid_coast_old character varying(255) COLLATE pg_catalog."default",
+    state_coast_old character varying(255) COLLATE pg_catalog."default",
+    wkb_geometry geometry
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.f11pc_rp10
+    OWNER to postgres;
+
+-------------------------------------INSERT-------------------------------
+
+INSERT INTO public.f11pc_rp10(
+	ogc_fid, objectid, uuid, sl_no, state, stcode, geog_area, f11pc_rp10, lat_gcs, long_gcs, lat_lcc, long_lcc, uid_coast_old, state_coast_old, wkb_geometry)
+	VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+
+-------------------------------------UPDATE-------------------------------
+
+UPDATE public.f11pc_rp10
+	SET ogc_fid=?, objectid=?, uuid=?, sl_no=?, state=?, stcode=?, geog_area=?, f11pc_rp10=?, lat_gcs=?, long_gcs=?, lat_lcc=?, long_lcc=?, uid_coast_old=?, state_coast_old=?, wkb_geometry=?
+	WHERE <condition>;
+
+-------------------------------------SELECT-------------------------------
+
+SELECT ogc_fid, objectid, uuid, sl_no, state, stcode, geog_area, f11pc_rp10, lat_gcs, long_gcs, lat_lcc, long_lcc, uid_coast_old, state_coast_old, wkb_geometry
+	FROM public.f11pc_rp10;
+
+-------------------------------------DELETE-------------------------------
+
+DELETE FROM public.f11pc_rp10
+	WHERE <condition>;
+
+//////////////////////////////////////////////////////////////////f11pc_rp50 TABLE :-14
+
+-- Table: public.f11pc_rp50
+
+-- DROP TABLE IF EXISTS public.f11pc_rp50;
+
+CREATE TABLE IF NOT EXISTS public.f11pc_rp50
+(
+    ogc_fid double precision,
+    objectid double precision,
+    uuid character varying(255) COLLATE pg_catalog."default",
+    sl_no character varying(255) COLLATE pg_catalog."default",
+    state character varying(100) COLLATE pg_catalog."default",
+    stcode double precision,
+    geog_area character varying(255) COLLATE pg_catalog."default",
+    f11pc_rp50 double precision,
+    lat_gcs double precision,
+    long_gcs double precision,
+    lat_lcc double precision,
+    long_lcc double precision,
+    uid_coast_old character varying(255) COLLATE pg_catalog."default",
+    state_coast_old character varying(255) COLLATE pg_catalog."default",
+    wkb_geometry geometry
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.f11pc_rp50
+    OWNER to postgres;
+
+-------------------------------------INSERT-------------------------------
+
+INSERT INTO public.f11pc_rp50(
+	ogc_fid, objectid, uuid, sl_no, state, stcode, geog_area, f11pc_rp50, lat_gcs, long_gcs, lat_lcc, long_lcc, uid_coast_old, state_coast_old, wkb_geometry)
+	VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+
+-------------------------------------UPDATE-------------------------------
+
+UPDATE public.f11pc_rp50
+	SET ogc_fid=?, objectid=?, uuid=?, sl_no=?, state=?, stcode=?, geog_area=?, f11pc_rp50=?, lat_gcs=?, long_gcs=?, lat_lcc=?, long_lcc=?, uid_coast_old=?, state_coast_old=?, wkb_geometry=?
+	WHERE <condition>;
+
+-------------------------------------SELECT-------------------------------
+
+SELECT ogc_fid, objectid, uuid, sl_no, state, stcode, geog_area, f11pc_rp50, lat_gcs, long_gcs, lat_lcc, long_lcc, uid_coast_old, state_coast_old, wkb_geometry
+	FROM public.f11pc_rp50;
+
+-------------------------------------DELETE-------------------------------
+
+DELETE FROM public.f11pc_rp50
+	WHERE <condition>;
+
+//////////////////////////////////////////////////////////////////f11pc_rp100 TABLE :-15
+
+-- Table: public.f11pc_rp100
+
+-- DROP TABLE IF EXISTS public.f11pc_rp100;
+
+CREATE TABLE IF NOT EXISTS public.f11pc_rp100
+(
+    ogc_fid double precision,
+    objectid double precision,
+    uuid character varying(255) COLLATE pg_catalog."default",
+    sl_no character varying(255) COLLATE pg_catalog."default",
+    state character varying(100) COLLATE pg_catalog."default",
+    stcode double precision,
+    geog_area character varying(255) COLLATE pg_catalog."default",
+    f11pc_rp100 double precision,
+    lat_gcs double precision,
+    long_gcs double precision,
+    lat_lcc double precision,
+    long_lcc double precision,
+    uid_coast_old character varying(255) COLLATE pg_catalog."default",
+    state_coast_old character varying(255) COLLATE pg_catalog."default",
+    wkb_geometry geometry
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.f11pc_rp100
+    OWNER to postgres;
+
+-------------------------------------INSERT-------------------------------
+
+INSERT INTO public.f11pc_rp100(
+	ogc_fid, objectid, uuid, sl_no, state, stcode, geog_area, f11pc_rp100, lat_gcs, long_gcs, lat_lcc, long_lcc, uid_coast_old, state_coast_old, wkb_geometry)
+	VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+
+-------------------------------------UPDATE-------------------------------
+
+UPDATE public.f11pc_rp100
+	SET ogc_fid=?, objectid=?, uuid=?, sl_no=?, state=?, stcode=?, geog_area=?, f11pc_rp100=?, lat_gcs=?, long_gcs=?, lat_lcc=?, long_lcc=?, uid_coast_old=?, state_coast_old=?, wkb_geometry=?
+	WHERE <condition>;
+
+-------------------------------------SELECT-------------------------------
+
+SELECT ogc_fid, objectid, uuid, sl_no, state, stcode, geog_area, f11pc_rp100, lat_gcs, long_gcs, lat_lcc, long_lcc, uid_coast_old, state_coast_old, wkb_geometry
+	FROM public.f11pc_rp100;
+
+-------------------------------------DELETE-------------------------------
+
+DELETE FROM public.f11pc_rp100
+	WHERE <condition>;
+
+
+

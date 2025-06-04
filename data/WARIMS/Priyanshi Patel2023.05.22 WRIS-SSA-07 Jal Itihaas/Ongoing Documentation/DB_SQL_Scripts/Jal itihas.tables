@@ -1,0 +1,155 @@
+//////////////////////////////////Jal itihas
+water_heritage_sites
+--------------------
+
+-- Table: public.water_heritage_sites
+
+-- DROP TABLE IF EXISTS public.water_heritage_sites;
+
+CREATE TABLE IF NOT EXISTS public.water_heritage_sites
+(
+    ogc_fid integer NOT NULL DEFAULT nextval('waterheritage_ogc_fid_seq'::regclass),
+    geom geometry(Point),
+    gid numeric(10,0),
+    objectid double precision,
+    uqcode character varying(16) COLLATE pg_catalog."default",
+    uuid character varying(10) COLLATE pg_catalog."default",
+    name character varying(250) COLLATE pg_catalog."default",
+    location character varying(250) COLLATE pg_catalog."default",
+    state character varying(254) COLLATE pg_catalog."default",
+    stcode character varying(2) COLLATE pg_catalog."default",
+    district character varying(254) COLLATE pg_catalog."default",
+    dtcode character varying(3) COLLATE pg_catalog."default",
+    vill_town character varying(100) COLLATE pg_catalog."default",
+    typology character varying(254) COLLATE pg_catalog."default",
+    year character varying(50) COLLATE pg_catalog."default",
+    maker character varying(250) COLLATE pg_catalog."default",
+    regime character varying(250) COLLATE pg_catalog."default",
+    ruler character varying(250) COLLATE pg_catalog."default",
+    engineer character varying(250) COLLATE pg_catalog."default",
+    present_ow character varying(250) COLLATE pg_catalog."default",
+    protected_ character varying(250) COLLATE pg_catalog."default",
+    use character varying(250) COLLATE pg_catalog."default",
+    present_co character varying(254) COLLATE pg_catalog."default",
+    water_syst character varying(254) COLLATE pg_catalog."default",
+    organizati character varying(250) COLLATE pg_catalog."default",
+    address character varying(254) COLLATE pg_catalog."default",
+    photo_path character varying(254) COLLATE pg_catalog."default",
+    nominator character varying(250) COLLATE pg_catalog."default",
+    date_cons character varying(250) COLLATE pg_catalog."default",
+    shortdescr character varying(254) COLLATE pg_catalog."default",
+    nominated character varying(10) COLLATE pg_catalog."default",
+    video_path character varying(50) COLLATE pg_catalog."default",
+    remarks character varying(10) COLLATE pg_catalog."default",
+    latitude double precision,
+    longitude double precision,
+    file_path character varying COLLATE pg_catalog."default",
+    CONSTRAINT waterheritage_pk PRIMARY KEY (ogc_fid)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.water_heritage_sites
+    OWNER to postgres;
+-- Index: waterheritage_wkb_geometry_geom_idx
+
+-- DROP INDEX IF EXISTS public.waterheritage_wkb_geometry_geom_idx;
+
+CREATE INDEX IF NOT EXISTS waterheritage_wkb_geometry_geom_idx
+    ON public.water_heritage_sites USING gist
+    (geom)
+    TABLESPACE pg_default;
+
+-----------------------------------------------INSERT-----------------------------------------
+
+INSERT INTO public.water_heritage_sites(
+	ogc_fid, geom, gid, objectid, uqcode, uuid, name, location, state, stcode, district, dtcode, vill_town, typology, year, maker, regime, ruler, engineer, present_ow, protected_, use, present_co, water_syst, organizati, address, photo_path, nominator, date_cons, shortdescr, nominated, video_path, remarks, latitude, longitude, file_path)
+	VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+
+-----------------------------------------------UPDATE-----------------------------------------
+
+UPDATE public.water_heritage_sites
+	SET ogc_fid=?, geom=?, gid=?, objectid=?, uqcode=?, uuid=?, name=?, location=?, state=?, stcode=?, district=?, dtcode=?, vill_town=?, typology=?, year=?, maker=?, regime=?, ruler=?, engineer=?, present_ow=?, protected_=?, use=?, present_co=?, water_syst=?, organizati=?, address=?, photo_path=?, nominator=?, date_cons=?, shortdescr=?, nominated=?, video_path=?, remarks=?, latitude=?, longitude=?, file_path=?
+	WHERE <condition>;
+
+-----------------------------------------------SELECT-----------------------------------------
+
+SELECT ogc_fid, geom, gid, objectid, uqcode, uuid, name, location, state, stcode, district, dtcode, vill_town, typology, year, maker, regime, ruler, engineer, present_ow, protected_, use, present_co, water_syst, organizati, address, photo_path, nominator, date_cons, shortdescr, nominated, video_path, remarks, latitude, longitude, file_path
+	FROM public.water_heritage_sites;
+
+-----------------------------------------------DELETE-----------------------------------------
+
+DELETE FROM public.water_heritage_sites
+	WHERE <condition>;
+
+//////////////////////////////////////////////
+watershed_cwc_dept_warims
+----------------------
+
+-- Table: public.watershed_cwc_dept_warims
+
+-- DROP TABLE IF EXISTS public.watershed_cwc_dept_warims;
+
+CREATE TABLE IF NOT EXISTS public.watershed_cwc_dept_warims
+(
+    gid integer NOT NULL DEFAULT nextval('watershed_cwc_dept_warims_gid_seq'::regclass),
+    objectid numeric,
+    uuid character varying(16) COLLATE pg_catalog."default",
+    wshed character varying(50) COLLATE pg_catalog."default",
+    wscode character varying(10) COLLATE pg_catalog."default",
+    subbasin character varying(100) COLLATE pg_catalog."default",
+    sbcode character varying(3) COLLATE pg_catalog."default",
+    basin character varying(100) COLLATE pg_catalog."default",
+    bacode character varying(2) COLLATE pg_catalog."default",
+    subdistric character varying(50) COLLATE pg_catalog."default",
+    sdcode character varying(5) COLLATE pg_catalog."default",
+    district character varying(50) COLLATE pg_catalog."default",
+    dtcode character varying(3) COLLATE pg_catalog."default",
+    state character varying(100) COLLATE pg_catalog."default",
+    stcode character varying(2) COLLATE pg_catalog."default",
+    area numeric,
+    shape_leng numeric,
+    shape_area numeric,
+    geom geometry(MultiPolygon),
+    CONSTRAINT watershed_cwc_dept_warims_pkey PRIMARY KEY (gid)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.watershed_cwc_dept_warims
+    OWNER to postgres;
+-- Index: watershed_cwc_dept_warims_geom_idx
+
+-- DROP INDEX IF EXISTS public.watershed_cwc_dept_warims_geom_idx;
+
+CREATE INDEX IF NOT EXISTS watershed_cwc_dept_warims_geom_idx
+    ON public.watershed_cwc_dept_warims USING gist
+    (geom)
+    TABLESPACE pg_default;
+-----------------------------------------------INSERT-----------------------------------------
+
+INSERT INTO public.watershed_cwc_dept_warims(
+	gid, objectid, uuid, wshed, wscode, subbasin, sbcode, basin, bacode, subdistric, sdcode, district, dtcode, state, stcode, area, shape_leng, shape_area, geom)
+	VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+
+-----------------------------------------------UPDATE-----------------------------------------
+
+UPDATE public.watershed_cwc_dept_warims
+	SET gid=?, objectid=?, uuid=?, wshed=?, wscode=?, subbasin=?, sbcode=?, basin=?, bacode=?, subdistric=?, sdcode=?, district=?, dtcode=?, state=?, stcode=?, area=?, shape_leng=?, shape_area=?, geom=?
+	WHERE <condition>;
+
+-----------------------------------------------SELECT-----------------------------------------
+
+SELECT gid, objectid, uuid, wshed, wscode, subbasin, sbcode, basin, bacode, subdistric, sdcode, district, dtcode, state, stcode, area, shape_leng, shape_area, geom
+	FROM public.watershed_cwc_dept_warims;
+
+-----------------------------------------------DELETE-----------------------------------------
+
+DELETE FROM public.watershed_cwc_dept_warims
+	WHERE <condition>;
+
+
+
+
+
+
