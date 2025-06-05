@@ -1,1 +1,27 @@
 streamlit
+# Core functionality
+langchain
+langchain-community
+sentence-transformers
+faiss-cpu
+
+# File handling
+pypdf
+python-docx
+python-pptx
+pytesseract
+Pillow
+docx2txt
+
+# OCR dependencies (optional but useful)
+pdf2image
+
+# Streamlit UI
+streamlit
+
+# Utility tools
+tiktoken
+openai
+
+# Optional (if you used them)
+textract
