@@ -8,8 +8,6 @@ from processing.text_cleaner import clean_text
 from processing.text_chunker import chunk_text, add_metadata_to_chunks
 from vector_store.embed_store import create_embedding_store
 from vector_store.retrieve_store import load_retriever
-from dotenv import load_dotenv
-load_dotenv()
 
 from some_llm_chain import run_chain  # LLM chain using GPT-4
 

@@ -1,0 +1,32 @@
+# Core functionality
+langchain==0.3.25
+langchain-community==0.3.25
+sentence-transformers==3.2.0
+faiss-cpu==1.9.0
+
+# File handling
+pypdf==5.0.1
+python-docx==1.1.2
+python-pptx==1.0.2
+pytesseract==0.3.13
+Pillow==10.4.0
+docx2txt==0.8
+
+# OCR dependencies
+pdf2image==1.17.0
+
+# Streamlit UI
+streamlit==1.39.0
+
+# Utility tools
+tiktoken==0.8.0
+openai==1.51.0
+
+# Optional dependencies
+numpy==1.26.4
+scikit-learn==1.5.2
+six==1.16.0
+pandas==2.2.3
+textract==1.6.5
+chromadb==0.5.11
+PyMuPDF==1.24.10
