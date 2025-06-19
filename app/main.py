@@ -9,22 +9,29 @@ from processing.text_chunker import chunk_text, add_metadata_to_chunks
 from vector_store.embed_store import create_embedding_store
 from vector_store.retrieve_store import load_retriever
 
-from some_llm_chain import run_chain  # LLM chain using GPT-4
-
+from some_llm_chain import run_chain  # LLM chain using Llama-2 or other models
 
 def main(file_path: str) -> None:
     print(f"\n🚀 Starting processing for: {file_path}")
 
     # Step 1: Parse the file to extract multiple (text, metadata) pairs
     try:
-        parsed_chunks = parse_file(file_path)  # Now returns list of (text, metadata)
+        parsed_chunks = parse_file(file_path)  # Now returns list of dicts with 'text' and 'metadata'
     except Exception as e:
         print(f"❌ File parsing failed: {e}")
         return
 
+    # ✅ [CHANGED HERE] Preview first 3 parsed chunks before cleaning
+    print("\n🔍 Parsed Chunk Preview (before cleaning):")
+    for i, chunk in enumerate(parsed_chunks[:3]):
+        print(f"\n✅ Preview {i+1}:\n{chunk['text'][:200]}... | Metadata: {chunk['metadata']}")
+
     all_chunks_with_meta = []
 
-    for raw_text, metadata in parsed_chunks:
+    for chunk in parsed_chunks:
+        raw_text = chunk["text"]
+        metadata = chunk["metadata"]
+
         print("\n📄 Raw Text Sample:")
         print(raw_text[:300])  # Show first 300 chars
 
@@ -62,10 +69,21 @@ def main(file_path: str) -> None:
     # Step 6: Load retriever
     retriever = load_retriever()
 
-    # Step 7: Run query
-    query = input("\n🔎 Enter your query: ")
-    response = run_chain(query, retriever)
-    print(f"\n🤖 AI Response:\n{response}")
+    # ✅ Step 7: Continuous elastic-like querying until user exits manually
+    print("\n📝 You can now enter your questions. Type 'exit' to quit.")
+    while True:
+        query = input("\n🔎 Ask your query: ").strip()
+        if query.lower() in ["exit", "quit"]:
+            print("👋 Exiting the chatbot. Have a great day!")
+            break
+        if not query:
+            print("⚠️ Please enter a valid question.")
+            continue
+        try:
+            response = run_chain(query, retriever)
+            print(f"\n🤖 Answer: {response['answer']}")
+        except Exception as e:
+            print(f"❌ Failed to get response: {e}")
 
 
 def select_path():

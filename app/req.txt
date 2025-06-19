@@ -25,8 +25,15 @@ openai==1.51.0
 # Optional dependencies
 numpy==1.26.4
 scikit-learn==1.5.2
-six==1.16.0
+six==1.17.0
 pandas==2.2.3
 textract==1.6.5
 chromadb==0.5.11
 PyMuPDF==1.24.10
+transformers
+accelerate 
+sentencepiece
+langchain-huggingface
+llama-cpp-python
+transformers accelerate
+

@@ -1,10 +1,6 @@
-from langchain_community.vectorstores import Chroma
-from sentence_transformers import SentenceTransformer
-# OLD (deprecated)
-from langchain.embeddings import HuggingFaceEmbeddings
-
-# NEW
+from langchain_community.vectorstores import FAISS
 from langchain_community.embeddings import HuggingFaceEmbeddings
+
 
 def create_embedding_store(chunks_with_metadata):
     # Toggle between embedding providers
@@ -30,7 +26,7 @@ def create_embedding_store(chunks_with_metadata):
             text = chunk["text"]
             metadata = chunk["metadata"]
 
-            # ✅ Ensure metadata is a dict (required by LangChain/Chroma)
+            # ✅ Ensure metadata is a dict (required by LangChain/FAISS)
             if not isinstance(metadata, dict):
                 metadata = {"source": metadata}
 
@@ -43,12 +39,12 @@ def create_embedding_store(chunks_with_metadata):
             print(f"❌ Failed to process chunk {i}: {e}")
             continue
 
-    vectordb = Chroma.from_texts(
-        texts=texts,
-        metadatas=metadatas,
-        embedding=embeddings,
-        persist_directory="chroma_db"
-    )
+    # 🔍 Preview the chunks being embedded
+    print("\n🔍 Previewing first 5 chunks before embedding:")
+    for i, text in enumerate(texts[:5]):
+        print(f"\n🔎 Chunk {i+1}:\n{text[:300]}\n{'-'*50}")
 
-    vectordb.persist()
+    vectordb = FAISS.from_texts(texts=texts, embedding=embeddings, metadatas=metadatas)
+    vectordb.save_local("faiss_index")
+
     return vectordb

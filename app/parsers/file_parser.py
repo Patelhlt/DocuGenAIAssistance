@@ -21,13 +21,15 @@ def parse_file(file_path):
     ext = os.path.splitext(file_path)[1].lower()
 
     if ext == ".pdf":
-        # Call your PDF parser with metadata and chunks
-        parsed_chunks = parse_pdf_with_page_metadata(file_path)
-        return parsed_chunks  # Return list of (text, metadata)
+        parsed_chunks = parse_pdf_with_page_metadata(file_path)  # returns list of (text, metadata)
+        return [
+            {"text": text, "metadata": metadata}
+            for text, metadata in parsed_chunks if text.strip()
+        ]
 
     elif ext == ".docx":
         text, metadata = parse_docx(file_path)
-        return [(text, metadata)]  # Wrap in list for consistency
+        return [{"text": text.strip(), "metadata": metadata}]
 
     elif ext == ".doc":
         try:
@@ -37,13 +39,16 @@ def parse_file(file_path):
                 "ext": ext,
                 "type": "doc"
             }
-            return [(text, metadata)]
+            return [{"text": text.strip(), "metadata": metadata}]
         except Exception as e:
             raise ValueError(f"[DOC ERROR] Failed to parse .doc: {e}")
 
     elif ext in [".ppt", ".pptx"]:
-        slides = parse_ppt(file_path)  # Already returns list of (text, metadata)
-        return slides
+        slides = parse_ppt(file_path)  # returns list of (text, metadata)
+        return [
+            {"text": text.strip(), "metadata": metadata}
+            for text, metadata in slides if text.strip()
+        ]
 
     elif ext == ".txt":
         with open(file_path, 'r', encoding='utf-8') as f:
@@ -53,7 +58,7 @@ def parse_file(file_path):
             "ext": ext,
             "type": "txt"
         }
-        return [(text, metadata)]
+        return [{"text": text.strip(), "metadata": metadata}]
 
     elif ext in [".png", ".jpg", ".jpeg"]:
         text = extract_text_from_image(file_path)
@@ -62,7 +67,7 @@ def parse_file(file_path):
             "ext": ext,
             "type": "image"
         }
-        return [(text, metadata)]
+        return [{"text": text.strip(), "metadata": metadata}]
 
     else:
         raise ValueError(f"Unsupported file type: {ext}")
