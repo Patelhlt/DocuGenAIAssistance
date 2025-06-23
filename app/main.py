@@ -25,7 +25,10 @@ def main(file_path: str) -> None:
     print("\n🔍 Parsed Chunk Preview (before cleaning):")
     for i, chunk in enumerate(parsed_chunks[:3]):
         print(f"\n✅ Preview {i+1}:\n{chunk['text'][:200]}... | Metadata: {chunk['metadata']}")
-
+# Add this to catch broken chunks
+        if chunk['text'].strip().lower() == "text":
+            print("🚨 ERROR: Placeholder 'text' found — likely dummy content, check your parser!")
+            return
     all_chunks_with_meta = []
 
     for chunk in parsed_chunks:
@@ -42,17 +45,17 @@ def main(file_path: str) -> None:
 
         # Step 3: Chunk the cleaned text
         chunks = chunk_text(cleaned_text)
-        print(f"\n✂️ Total chunks created: {len(chunks)}")
+        print(f"\n✂ Total chunks created: {len(chunks)}")
 
         # Step 4: Add metadata to each chunk
         chunked_with_meta = add_metadata_to_chunks(chunks, metadata)
         all_chunks_with_meta.extend(chunked_with_meta)
 
-    # Step 5: Create embeddings and persist in Chroma DB (with better error tracking)
+    # Step 5: Create embeddings and persist in FAISS
     try:
         print(f"\n🧠 Creating embeddings for {len(all_chunks_with_meta)} chunks...")
         vectordb = create_embedding_store(all_chunks_with_meta)
-        print(f"\n✅ Embeddings stored in Chroma DB for {len(all_chunks_with_meta)} chunks.")
+        print(f"\n✅ Embeddings stored in FAISS for {len(all_chunks_with_meta)} chunks.")
     except Exception as e:
         print(f"\n❌ Embedding creation/storage failed: {e}")
         print("🔍 Attempting to isolate the problematic chunk...")
@@ -77,10 +80,18 @@ def main(file_path: str) -> None:
             print("👋 Exiting the chatbot. Have a great day!")
             break
         if not query:
-            print("⚠️ Please enter a valid question.")
+            print("⚠ Please enter a valid question.")
             continue
         try:
-            response = run_chain(query, retriever)
+            # 🔍 Dynamically set filtering rule
+            filter_by = None
+            if "first page" in query.lower():
+                filter_by = "first_page"
+            elif "abstract" in query.lower():
+                filter_by = "abstract"
+
+            # 🔁 Call the chain with optional filter
+            response = run_chain(query, retriever, filter_by=filter_by)
             print(f"\n🤖 Answer: {response['answer']}")
         except Exception as e:
             print(f"❌ Failed to get response: {e}")
